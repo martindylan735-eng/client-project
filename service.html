@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tri-County Comfort Specialists | Services</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <!-- Hero Wrapper -->
+    <div class="hero-wrapper">
+            <!--Hero Banner image -->
+            <section class="hero-banner">
+                <img src="headerimage.png" alt="HVAC Servicing banner">
+            </section>
+            <div class="hero-logo-group">
+                <img src="trilogo.png"  class="hero-overlay-image" alt="Tri-County Logo">
+                <div class="hero-logo-text">
+                    <h2>Comfort Specialists</h2>
+                    <p>35 Years of reliable HVACR expertise!</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <header>
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <section class="section-hero">
+            <div class="hero-image">
+                <img src="servicehero.png" alt="Image of air conditioning units under one roof. Comfort for your home">
+                <div class="hero-text">
+                    <h2>Our Services!</h2>
+                </div>
+            </div>
+        </section>
+           
+
+        <section class="our-services">
+            <div class="what-we-do" data-service="heating">
+                <h3>Heating</h3>
+            </div>
+            <div class="what-we-do" data-service="ac">
+                <h3>Air Conditioning</h3>
+            </div>
+            <div class="what-we-do" data-service="refrigeration">
+                <h3>Refrigeration</h3>
+            </div>
+        </section>
+
+        <div id="services-page-modal" class="services-modal-overlay">
+            <div class="services-modal-content">
+                <button class="close-modal-btn" aria-label="Close Details">&times;</button>
+                <h2 id="modal-service-title">Service Title</h2>
+                <hr class="modal-divider">
+                <p id="modal-service-desc">Detailed service explanations go here.</p>
+                <a href="#contact" id="modal-action-btn" class="modal-quote-btn">Request a Free Quote</a>
+            </div>
+        </div>
+
+        <script>
+        // USE THIS SCRIPT REPLACEMENT ONLY IF THE FORM IS ON A SEPARATE PAGE (CONTACT.HTML)
+document.addEventListener('DOMContentLoaded', () => {
+    const serviceDetails = {
+        heating: { title: "Heating Specialists", desc: "Don't let freezing weather compromise your home comfort..." },
+        ac: { title: "Air Conditioning", desc: "Keep cool when outdoor summer heat peaks..." },
+        refrigeration: { title: "Commercial Refrigeration", desc: "Designed to minimize business downtime..." }
+    };
+
+    const modalElement = document.getElementById('services-page-modal');
+    const modalTitle = document.getElementById('modal-service-title');
+    const modalDesc = document.getElementById('modal-service-desc');
+    const closeBtn = document.querySelector('.close-modal-btn');
+    const actionBtn = document.getElementById('modal-action-btn');
+
+    let currentOpenService = ''; 
+
+    const openModalWindow = (serviceKey) => {
+        const data = serviceDetails[serviceKey];
+        if (data) {
+            currentOpenService = serviceKey; 
+            modalTitle.textContent = data.title;
+            modalDesc.textContent = data.desc;
+            
+            // DYNAMIC UPDATE: Changes the button redirect to point directly to contact page + target hash
+            if (actionBtn) {
+                actionBtn.setAttribute('href', `contact.html#${serviceKey}`);
+            }
+            
+            modalElement.classList.add('active');
+        }
+    };
+
+    document.querySelectorAll('.what-we-do[data-service]').forEach(card => {
+        card.addEventListener('click', () => {
+            openModalWindow(card.getAttribute('data-service'));
+        });
+    });
+
+    const hideModal = () => modalElement.classList.remove('active');
+    if (closeBtn) closeBtn.addEventListener('click', hideModal);
+    if (modalElement) modalElement.addEventListener('click', (e) => { if (e.target === modalElement) hideModal(); });
+
+    const checkUrlHash = () => {
+        const hashKey = window.location.hash.substring(1);
+        if (serviceDetails[hashKey]) openModalWindow(hashKey);
+    };
+    checkUrlHash();
+    window.addEventListener('hashchange', checkUrlHash);
+});
+</script>
+        <section class="offerings-section">
+            <div class="container offerings-grid">
+
+                <div class="offerings-header">
+                    <h2>What We Offer</h2>
+                </div>
+
+                <div class="offerings-content-grid">
+
+                    <div class="offer-item">
+                        <h3>Equipment Installation</h3>
+                        <p>We only replace equipment when it is absolutely necessary. But when we do, we provide the highest quality equipment available on the market using the industries most up to date technology. We have a wide variety of efficiencies to meet every budget.</p>
+                    </div>
+                    <div class="offer-item">
+                        <h3>Equipment Maintenance</h3>
+                        <p>With our 17 point inspection process, we are able to find issues with your system before they show their ugly face. In most cases, preventing costly replacements of your system. These inspections ensure the efficient operation of your equipment which saves you money.</p>
+                    </div>
+                    <div class="offer-item">
+                        <h3>Equipment Site Survey</h3>
+                        <p>It's important to have the right system for your home. We perform load calculations on your home, to insure that the system that you have/need is the right one. After all, what good is an under/oversized unit that doesn't meet your homes needs?</p>
+                    </div>
+                    <div class="offer-item">
+                        <h3>Equipment Repair</h3>
+                        <p>When your equipment needs to be repaired, you can count on us to have the right parts for your unit. Because we work with many manufacturers and suppliers that have your equipment's parts in stock or delivered next day, We're able to bring you comfort sooner.</p>
+                    </div>
+                    <div class="offer-item">
+                        <h3>Emergency Services</h3>
+                        <p>Not all breakdowns happen when it's convenient. That's why we provide 24 hour emergency service for when you just can wait until tomorrow.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="comfort-highlight">
+            <div class="container">
+                <div class="comfort-content">
+                    <p>Home is where you go to relax. Where you spend time with family. The last thing you want, is to be uncomfortable. That's why we take the time to give you the best service possible, so that you don't have to even think about your heating and cooling system. Just set it and forget it. Notice some of the extra steps we take to make sure that the time you spend at home is HVAC worry free.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="review-section">
+
+            <div class="container">
+                <h2 class="reviews-title">What our clients say</h2>
+
+                <div class="review-carousel-window">
+                    <div class="review-carousel-engine" id="review-carousel-track">
+
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text">Insert reviews here. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est placeat distinctio, temporibus blanditiis quisquam doloribus.</p>
+                                <h4 class="review-author">- Sarah M., Residential Client</h4>
+                            </div>
+                        </div>
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text">Insert reviews here. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est placeat distinctio, temporibus blanditiis quisquam doloribus.</p>
+                                <h4 class="review-author">- David & Linda T., Homeowner</h4>
+                            </div>
+                        </div>
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text">Insert reviews here. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est placeat distinctio, temporibus blanditiis quisquam doloribus.</p>
+                                <h4 class="review-author">-James K., Business Owner</h4>
+                            </div>
+                        </div>
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p class="review-text">Insert reviews here. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Est placeat distinctio, temporibus blanditiis quisquam doloribus.</p>
+                                <h4 class="review-author">- David H., Residential Client</h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    
+        <!--Footer area-->
+        <footer>
+            <div class="footer-grid">
+
+                <div class="footer-contact left-align">
+                    <p><strong>Phone:</strong> (937) 653-4328</p>
+                    <p><strong>Email:</strong> <a href="mailto:wayne@tccomforspecialists.com">wayne@tccomfortspecialists.com</a></p>
+                </div>
+
+                <div class="footer-logo-center">
+                    <img src="trilogo.png" alt="Tri-County footer logo">
+                </div>
+
+                <div class="footer-contact right-align">
+                    <h4>Tri-County Comfort Specialists LLC.</h4>
+                    <p style="font-size: 0.8rem; color: #777;">Designed by <a href="https://www.budgetweblabs.com" target="_blank">Budget Web Labs LLC.</a></p>
+                </div>
+            </div>
+                <div class="footer-bottom">
+                    <p>&copy;2026 Tri-County Comfort Specialists LLC. All Rights Reserved.</p>
+                </div>
+        </footer>
+
+        <script>
+            function startReviewsCarousel() {
+                const track = document.getElementById('review-carousel-track');
+                if (!track) return;
+
+                const slides = track.children;
+                const totalSlides = slides.length;
+                let currentIndex = 0;
+
+                setInterval(() => {
+                    //Increment layout tracking index
+                    currentIndex = (currentIndex + 1) % totalSlides;
+
+                    //Displace the track by 100% increments
+                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                }, 5000); //Transitions automatically every 5 seconds
+            }
+            document.addEventListener('DOMContentLoaded', () => {
+                startReviewsCarousel();
+            });
+
+        </script>
+
+</body>
+</html>

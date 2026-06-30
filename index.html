@@ -30,8 +30,8 @@
             <div class="nav-container">
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
         </header>
@@ -48,15 +48,98 @@
                     <div class="service-list">
                         <h3>Our Services</h3>
                         <ul>
-                            <li><a href="#">Heating</a></li>
-                            <li><a href="#">Air Conditioning</a></li>
-                            <li><a href="#">Refigeration</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#" data-service="heating">Heating</a></li>
+                            <li><a href="#" data-service="ac">Air Conditioning</a></li>
+                            <li><a href="#" data-service="refrigeration">Refigeration</a></li>
+                            <li><a href="#" data-service="contact">Contact Us</a></li>
                         </ul>
                     </div>
                 </aside>
+
+                <div id="service-overlay" class="overlay-modal">
+                    <div class="overlay-content">
+                        <button class="close-overlay-btn" aria-label="Close overlay">&times;</button>
+                        <h2 id="overlay-title">Service Title</h2>
+                        <p id="overlay-description">Brief descrition or introductory text about this specific service will appear here dynamically.</p>
+                        
+                        <a href="#" id="overlay-target-link" class="overlay-action-btn">Learn More & View Details</a>
+                    </div>
+                </div>
+
             </div>
         </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Service data dictionary 
+                const serviceData = {
+                    heating: {
+                        title: "Heating Services",
+                        desc: "From system installations to seasonal tune-ups, we keep your indoor spaces warm and comfortable.",
+                        link: "service.html#heating"
+                    },
+                    ac: {
+                        title: "Air Conditioning",
+                        desc: "Stay cool all summer. We provide expert AC maintenance, rapid repairs, and energy-efficient system setups.",
+                        link: "service.html#ac" 
+                    },
+                    refrigeration: {
+                        title: "Commercial Refrigeration",
+                        desc: "Reliable cooling solutions for businesses. We handle walk-in freezers, display cases, and industrial cooling maintenance.",
+                        link: "service.html#refrigeration"
+                    },
+                    contact: {
+                        title: "Get in Touch",
+                        desc: "Have an emergency or need an immediate quote? Reach out to our team directly right now.",
+                        link: "contact.html"
+                    }
+                };
+
+                // DOM Elements
+                const overlay = document.getElementById('service-overlay');
+                const overlayTitle = document.getElementById('overlay-title');
+                const overlayDesc = document.getElementById('overlay-description');
+                const overlayLink = document.getElementById('overlay-target-link');
+                const closeBtn = document.querySelector('.close-overlay-btn');
+
+                // Open overlay on click
+                document.querySelectorAll('.service-list a[data-service]').forEach(sidebarLink => {
+                    sidebarLink.addEventListener('click', (e) => {
+                        
+                        const serviceKey = sidebarLink.getAttribute('data-service');
+
+                        if (serviceKey === 'contact') return;
+
+                        if (overlay) {
+                            e.preventDefault();
+
+                            const data = serviceData[serviceKey];
+                            if (data) {
+                                overlayTitle.textContent = data.title;
+                                overlayDesc.textContent = data.desc;
+
+                                if (overlayLink) {
+                                    overlayLink.setAttribute('href', data.link);
+                                }
+
+                                overlay.classList.add('open');
+                            }
+                        } else {
+                            e.preventDefault();
+                            window.location.href = `service.html#${serviceKey}`;
+                        }
+                    });
+                });
+                
+                if (overlay && closeBtn) {
+                    const closeOverlay = () => overlay.classList.remove('open');
+                    closeBtn.addEventListener('click', closeOverlay);
+                    overlay.addEventListener('click', (e) => {
+                        if (e.target === overlay) closeOverlay();
+                    });
+                }
+            });
+        </script>
 
         <div class="content-gallery">
             <img src="accleaning.png" alt="Man Cleaning ac unit">
@@ -91,6 +174,16 @@
                             <label for="phone">Phone:</label>
                             <input type="tel" id="phone" name="phone" placeholder="Phone #" required>
                         </div>
+                        <div class="form-groups full-width">
+                                <label for="service-type">Service Needed:</label>
+                                <select name="service-type" id="service-type" required style="width: 100%; padding: 12px 15px; border: 1px solid #cccccc; background-color: #fcfcfc; border-radius: 4px; font-family: 'Oswald', sans-serif; font-size: 1rem; color: #333333; outline: none;">
+                                    <option value="" disabled selected>-- Select a Service --</option>
+                                    <option value="Heating">Heating</option>
+                                    <option value="AC">Air Conditioning</option>
+                                    <option value="Refrigeration">Refrigeration</option>
+                                    <option value="Emergency Services">Emergency Services</option>
+                                </select>
+                        </div>
                         <div class="form-group full-width">
                             <label for="comments">Comments:</label>
                             <textarea name="comments" id="comments" name="comments" placeholder="Comments" required></textarea>
@@ -123,5 +216,6 @@
                     <p>&copy;2026 Tri-County Comfort Specialists LLC. All Rights Reserved.</p>
                 </div>
         </footer>
+
     </body>
 </html>
